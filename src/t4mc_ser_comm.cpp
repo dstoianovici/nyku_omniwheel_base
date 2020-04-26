@@ -16,20 +16,16 @@ Serial_Comm::Serial_Comm(std::string port_addr){
 
 
 //////////Methods////////////
-int Serial_Comm::SendPacket(std::vector<int>& setpoints){
+void Serial_Comm::SendPacket(std::vector<int>& setpoints){
     Serial_Comm::OpenPort();
     char buff[7];
     char* msg = Serial_Comm::Create_Msg(setpoints);
 
     write(_usb_port,msg,_msg_size);
 
-    while(read(_usb_port,  buff, sizeof(buff)) != 7); //wait for settled message
-
     std::cout<<buff<<std::endl;
 
     close(_usb_port);
-
-    return 1;
 }
 
 

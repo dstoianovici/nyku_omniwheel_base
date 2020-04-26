@@ -28,7 +28,7 @@
     public:
         Serial_Comm(std::string port_addr);
     
-        int SendPacket(std::vector<int>& setpoints);
+        void SendPacket(std::vector<int>& setpoints);
 
 
     private:
