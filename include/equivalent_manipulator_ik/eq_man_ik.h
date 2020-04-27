@@ -5,7 +5,7 @@
 #include <math.h>
 #include <vector>
 
-#define PI 3.14159265
+#define PI_ 3.14159265
 
 
 class IK_Solver_OW

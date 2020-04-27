@@ -6,8 +6,8 @@
 
 //Default constructor
 IK_Solver_OW::IK_Solver_OW(){
-    _ang_0 = 120*(PI/180);
-    _ang_1 = 45*(PI/180);
+    _ang_0 = 120*(PI_/180);
+    _ang_1 = 45*(PI_/180);
 
     c0 = cos(_ang_0);
     c1 = cos(_ang_1);
@@ -17,8 +17,8 @@ IK_Solver_OW::IK_Solver_OW(){
 
 //Declarative Constructor
 IK_Solver_OW::IK_Solver_OW(float ang_0, float ang_1){
-    _ang_0 = ang_0*(PI/180);
-    _ang_1 = ang_1*(PI/180);
+    _ang_0 = ang_0*(PI_/180);
+    _ang_1 = ang_1*(PI_/180);
 
     c0 = cos(_ang_0);
     c1 = cos(_ang_1);
