@@ -128,9 +128,14 @@ std::vector<float> IK_Solver_OW::solve_ik_4q(std::vector<float> rot_goal){
     // q_out[1] = q2b;    
     // q_out[2] = q2c;
 
-    q_out[0] = q2c;
+    // q_out[0] = q2c;
+    // q_out[1] = q2a;    
+    // q_out[2] = q2b;
+
+    //map to motor axis
+    q_out[0] = q2b;
     q_out[1] = q2a;    
-    q_out[2] = q2b;
+    q_out[2] = q2c;
 
 
     return q_out;
