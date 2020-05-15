@@ -140,39 +140,41 @@ std::vector<std::vector<float>> read_test_data(const char* file_name){
 
 int main(int argc, char* argv[]){
 
-    ros::init(argc, argv, "OWB_IK_node");
-    ros::NodeHandle nh;
-    ros::Publisher goal_pub = nh.advertise<std_msgs::Int32MultiArray>("OWB_goal_pos", 1000);
-    ros::Subscriber pos_error_sub = nh.subscribe("OWB_pos_error", 500, &error_callback);
-    //ros::Subscriber imu_sub = nh.subscribe("imu", 500, &imu_callback);
-    ros::Subscriber cam_sub = nh.subscribe("torso_rotation", 500, &torsoRPY_callback);
-    ros::Rate e_rate(100);
+    
 
-    std_msgs::Int32MultiArray goal_pos;
-    goal_pos.data.resize(3);
+    // ros::init(argc, argv, "OWB_IK_node");
+    // ros::NodeHandle nh;
+    // ros::Publisher goal_pub = nh.advertise<std_msgs::Int32MultiArray>("OWB_goal_pos", 1000);
+    // ros::Subscriber pos_error_sub = nh.subscribe("OWB_pos_error", 500, &error_callback);
+    // //ros::Subscriber imu_sub = nh.subscribe("imu", 500, &imu_callback);
+    // ros::Subscriber cam_sub = nh.subscribe("torso_rotation", 500, &torsoRPY_callback);
+    // ros::Rate e_rate(100);
 
-    IK_Solver_OW ik;
+    // std_msgs::Int32MultiArray goal_pos;
+    // goal_pos.data.resize(3);
 
-    std::vector<int>  ow_mot(3);
-    std::vector<float> ow_pos_rad(3);
+    // IK_Solver_OW ik;
 
-    // goal_rot[0] = deg_2_rad(0); //about x global
-    // goal_rot[1] = deg_2_rad(0); //about y
-    // goal_rot[2] = deg_2_rad(179); //about z
+    // std::vector<int>  ow_mot(3);
+    // std::vector<float> ow_pos_rad(3);
+
+    // // goal_rot[0] = deg_2_rad(0); //about x global
+    // // goal_rot[1] = deg_2_rad(0); //about y
+    // // goal_rot[2] = deg_2_rad(179); //about z
 
 
    
 
-    while(ros::ok()){
-        ow_mot = ik_to_motors(GEAR_RATIO, ik.solve_ik_4q(goal_rot));
-        goal_pos = create_goal_msg(ow_mot);
-        goal_pub.publish(goal_pos);
-        ROS_INFO("Goal Pub: %d, %d, %d", goal_pos.data[0],goal_pos.data[1],goal_pos.data[2]);
-        ros::spinOnce();
-        e_rate.sleep();
-    }
+    // while(ros::ok()){
+    //     ow_mot = ik_to_motors(GEAR_RATIO, ik.solve_ik_4q(goal_rot));
+    //     goal_pos = create_goal_msg(ow_mot);
+    //     goal_pub.publish(goal_pos);
+    //     ROS_INFO("Goal Pub: %d, %d, %d", goal_pos.data[0],goal_pos.data[1],goal_pos.data[2]);
+    //     ros::spinOnce();
+    //     e_rate.sleep();
+    // }
 
-    ros::shutdown();
+    // ros::shutdown();
 
     return 0;
 }
