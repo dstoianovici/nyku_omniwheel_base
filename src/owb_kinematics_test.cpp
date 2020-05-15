@@ -113,11 +113,11 @@ float deg_2_rad(float deg){
 std::vector<std::vector<float>> read_test_data(std::string file_name){
     std::ifstream file;
     std::vector<std::vector<float>> goal_rpy_list;
-    std::string line;
-
     file.open(file_name.c_str(), std::ios::in);
 
     if(file.is_open()){
+        std::string line;
+        uint j = 0;
         while(std::getline(file, line)){
             std::stringstream ss(line);
             std::string rad_s;
@@ -132,13 +132,12 @@ std::vector<std::vector<float>> read_test_data(std::string file_name){
                 i++;
             };
             goal_rpy_list.push_back(goal_rpy);
+            j++;
         }
+        goal_rpy_list.resize(j);
     }
 
     else std::cout << "Could not open file"  << std::endl;
-
-    //goal_rpy_list.resize(i);
-
     return goal_rpy_list;
 }
 
@@ -149,12 +148,11 @@ void print_file(std::vector<std::vector<float>> file_list){
 }
 
 int main(int argc, char* argv[]){
-    ros::init(argc, argv, "OWB_IK_node");
+    ros::init(argc, argv, "kinematics_test_node");
     ros::NodeHandle nh;
     ros::Publisher goal_pub = nh.advertise<std_msgs::Int32MultiArray>("OWB_goal_pos", 1000);
     ros::Subscriber pos_error_sub = nh.subscribe("OWB_pos_error", 500, &error_callback);
     ros::Subscriber imu_sub = nh.subscribe("imu", 500, &imu_callback);
-    ros::Subscriber cam_sub = nh.subscribe("torso_rotation", 500, &torsoRPY_callback);
     ros::Rate e_rate(100);
 
     std::string file_name = "goal_pos_test_roll.csv";
@@ -187,8 +185,7 @@ int main(int argc, char* argv[]){
     //     e_rate.sleep();
     // }
 
-    // ros::shutdown();
-
+    ros::shutdown();
     return 0;
 }
 
