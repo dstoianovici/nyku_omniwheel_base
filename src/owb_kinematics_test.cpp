@@ -3,9 +3,11 @@
 #include <stdio.h>
 #include <std_msgs/Int32MultiArray.h>
 #include <sensor_msgs/Imu.h>
-// #include <geometry_msgs/Quaternion.h>
 #include <tf2/LinearMath/Quaternion.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
+#include <fstream>
+#include <string>
+#include <vector>
 
 
 
@@ -102,7 +104,7 @@ float deg_2_rad(int deg){
 
 
 std::vector<std::vector<float>> read_test_data(const char* file_name){
-    std::ifstream file("~/catkin_ws/src/nyku_omniwheel_base/testing_data/goal_pos_test_roll.csv",std::ios::in);
+    std::ifstream file;
     std::vector<float> goal_rpy(3);
     std::vector<std::vector<float>> goal_rpy_list;
     uint i = 0;
@@ -137,10 +139,14 @@ std::vector<std::vector<float>> read_test_data(const char* file_name){
     return goal_rpy_list;
 }
 
+void print_file(std::vector<std::vector<float>> file_list){
+    for(int i = 0; i < file_list.size(); i++){
+        std::cout<<file_list[i][0] << "," << file_list[i][1] << "," <<  file_list[i][2] << std::endl;
+    }
+}
 
 int main(int argc, char* argv[]){
 
-    
 
     // ros::init(argc, argv, "OWB_IK_node");
     // ros::NodeHandle nh;
