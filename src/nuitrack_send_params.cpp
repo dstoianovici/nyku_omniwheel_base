@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <std_msgs/Int32MultiArray.h>
 #include <sensor_msgs/Imu.h>
-// #include <geometry_msgs/Quaternion.h>
 #include <tf2/LinearMath/Quaternion.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 
@@ -46,23 +45,6 @@ void error_callback(const std_msgs::Int32MultiArray& error_msg){
     ROS_INFO("OW Error: (%d, %d, %d)", error_msg.data[0], error_msg.data[1], error_msg.data[2]);
 }
 
-
-// void imu_callback(const sensor_msgs::Imu& imu_msg){
-//     tf2::Quaternion quat_tf;
-//     tf2::convert(imu_msg.orientation,quat_tf);
-
-//     tf2Scalar roll, pitch, yaw;
-
-//     tf2::Matrix3x3(quat_tf).getRPY(roll,pitch,yaw);
-
-//     goal_rot[0] = roll;
-//     goal_rot[1] = pitch;
-//     goal_rot[2] = yaw;
-
-//     //ROS_INFO("RPY: %f ,%f ,%f", roll,pitch,yaw);
-// }
-
-
 void torsoRPY_callback(const geometry_msgs::Pose torso_quat){
     tf2Scalar roll, pitch, yaw;
     tf2::Matrix3x3 torso_rot;
@@ -103,11 +85,10 @@ float deg_2_rad(int deg){
 
 int main(int argc, char* argv[]){
 
-    ros::init(argc, argv, "OWB_IK_node");
+    ros::init(argc, argv, "OWB_IK_node_imu");
     ros::NodeHandle nh;
     ros::Publisher goal_pub = nh.advertise<std_msgs::Int32MultiArray>("OWB_goal_pos", 1000);
     ros::Subscriber pos_error_sub = nh.subscribe("OWB_pos_error", 500, &error_callback);
-    //ros::Subscriber imu_sub = nh.subscribe("imu", 500, &imu_callback);
     ros::Subscriber cam_sub = nh.subscribe("torso_rotation", 500, &torsoRPY_callback);
     ros::Rate e_rate(100);
 
@@ -118,11 +99,6 @@ int main(int argc, char* argv[]){
 
     std::vector<int>  ow_mot(3);
     std::vector<float> ow_pos_rad(3);
-
-    // goal_rot[0] = deg_2_rad(0); //about x global
-    // goal_rot[1] = deg_2_rad(0); //about y
-    // goal_rot[2] = deg_2_rad(179); //about z
-
 
    
 

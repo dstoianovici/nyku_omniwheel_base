@@ -1,0 +1,8 @@
+<launch>
+    <node pkg="rosserial_python" type="serial_node.py" name="rosserial_teensy_node" args=" _baud:=115200 _port:=/dev/teensy_4" />
+
+    <node pkg="nyku_omniwheel_base" type="nuitrack_param_send" name="nuitrack_demo" />
+
+    <node pkg="skeleton_track" type="skeleton_track_node" name="nuitrack_skel_node" />
+
+</launch>
