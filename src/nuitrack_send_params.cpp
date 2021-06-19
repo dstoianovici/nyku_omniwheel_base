@@ -7,7 +7,7 @@
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 
 
-
+//define parameters for omni-wheel base mechanism
 #define GEAR_RATIO 12/1.5
 #define ROTATION 4752
 
